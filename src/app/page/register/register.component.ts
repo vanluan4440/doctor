@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserLoginRegisterService } from 'src/app/services/user-login-register.service';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit {
     address: new FormControl('',Validators.required)
   });
   constructor(
+    private serviceUserRegister: UserLoginRegisterService,
 
   ) { }
 
@@ -34,7 +36,10 @@ export class RegisterComponent implements OnInit {
       return
     }
     else{
-      console.log(this.registerForm.value);
+      this.serviceUserRegister.register(this.registerForm.valid).subscribe((res)=>{
+        console.log(res);
+
+      })
 
     }
 
